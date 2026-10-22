@@ -32,13 +32,13 @@ class FirestoreManager {
 
   static CollectionReference<EventModel> getEventsCollection(){
     var collection = FirebaseFirestore.instance.collection("Event").withConverter(
-        fromFirestore: (snapshot, options) {
-          var docSnapshot = snapshot.data();
-          return EventModel.fromFirestore(docSnapshot);
-        },
-        toFirestore:  (value, options) {
-          return value.toFirestore();
-        },
+      fromFirestore: (snapshot, options) {
+        var docSnapshot = snapshot.data();
+        return EventModel.fromFirestore(docSnapshot);
+      },
+      toFirestore:  (value, options) {
+        return value.toFirestore();
+      },
     );
     return collection;
   }
@@ -112,25 +112,16 @@ class FirestoreManager {
     var eventsStream = docsStream.map((docs) => docs.map((document) => document.data(),).toList(),);
     yield* eventsStream;
   }
+
+  static Future<void> updateEvent(EventModel event){
+    var collection = getEventsCollection();
+    var doc = collection.doc(event.id);
+    return doc.set(event);
+  }
+
+  static Future<void> deleteEvent(EventModel event)async{
+    var collection = getEventsCollection();
+    await collection.doc(event.id).delete();
+    await getFavoritesCollection().doc(event.id).delete();
+  }
 }
-
-
-/*
-*  {
-*   "name" :"Ahmed",
-*   "age":25,
-*   "friends: [
-*        {
-*         "name":"wael",
-*         "phone":"01020202"
-*         },
-*         {
-*         "name":"Said",
-*         "phone":"01120202"
-*         }
-*        ]
-*   }
-*
-*
-*
-* */

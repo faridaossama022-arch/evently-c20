@@ -14,11 +14,9 @@ class BirthdayView extends StatelessWidget {
       future: FirestoreManager.getFilteredEvents(AppConstants.types[1]),
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
-          // loading status
           return Center(child: CircularProgressIndicator(),);
         }
         if(snapshot.hasError){
-          // Error status
           return Column(
             children: [
               Text(snapshot.error.toString()),
@@ -28,7 +26,7 @@ class BirthdayView extends StatelessWidget {
             ],
           );
         }
-        // success status
+
         List<EventModel> events = snapshot.data??[];
         if(events.isEmpty){
           return Center(child: Text('No events found',style: TextStyle(

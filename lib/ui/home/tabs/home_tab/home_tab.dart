@@ -1,7 +1,5 @@
 import 'package:evently_c20/core/resources/assets_manager.dart';
 import 'package:evently_c20/core/resources/my_flutter_app_icons.dart';
-import 'package:evently_c20/core/resources/strings_manager.dart';
-import 'package:evently_c20/core/reusable_components/event_item.dart';
 import 'package:evently_c20/providers/theme_provider.dart';
 import 'package:evently_c20/providers/user_provider.dart';
 import 'package:evently_c20/ui/home/tabs/home_tab/tabs/all_view.dart';
@@ -13,7 +11,6 @@ import 'package:evently_c20/ui/home/tabs/home_tab/tabs/sport_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../start/widgets/language_switch.dart';
 
 class HomeTab extends StatelessWidget {

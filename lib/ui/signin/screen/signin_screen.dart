@@ -1,8 +1,8 @@
 import 'package:evently_c20/core/resources/dialog_utils.dart';
 import 'package:evently_c20/core/resources/routes_manager.dart';
+import 'package:evently_c20/core/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/resources/app_constants.dart';
 import '../../../core/resources/assets_manager.dart';
 import '../../../core/resources/strings_manager.dart';
@@ -92,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(onPressed: () {
-
+                    Navigator.of(context).pushNamed(RoutesManager.forgetPassword);
                   }, child: Text("Forget Password?",style:Theme.of(context).textTheme.titleSmall ,)),
                 ),
                 SizedBox(height: 48,),
@@ -117,11 +117,40 @@ class _SignInScreenState extends State<SignInScreen> {
                           padding: EdgeInsets.zero,
                         ),
                         onPressed: (){
-                         Navigator.of(context).pushReplacementNamed(RoutesManager.signup);
+                          Navigator.of(context).pushReplacementNamed(RoutesManager.signup);
                         },
                         child: Text("Signup",style:Theme.of(context).textTheme.titleSmall)
                     ),
                   ],),
+                SizedBox(height: 8,),
+                Center(
+                  child: Text("Or",style: Theme.of(context).textTheme.titleSmall,),
+                ),
+                SizedBox(height: 16,),
+                InkWell(
+                  onTap: () {
+                    signInWithGoogle();
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(AssetsManager.google, width: 24, height: 24,),
+                        SizedBox(width: 8,),
+                        Text("Login with Google",style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontSize: 16,
+                        ),),
+                      ],
+                    ),
+                  ),
+                ),
 
               ],
             ),
@@ -142,11 +171,22 @@ class _SignInScreenState extends State<SignInScreen> {
       Navigator.of(context).pushReplacementNamed(RoutesManager.home);
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
-      if (e.code == 'user-not-found') {
-        DialogUtils.showMessageDialog(context: context, content: 'No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        DialogUtils.showMessageDialog(context: context, content: 'Wrong password provided for that user.');
-      }
+      DialogUtils.showMessageDialog(context: context, content: e.message ?? e.code);
+      print(e.toString());
+    }
+  }
+
+  signInWithGoogle()async{
+    try {
+      DialogUtils.showLoadingDialog(context);
+      await AuthService.signInWithGoogle();
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacementNamed(RoutesManager.home);
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.of(context).pop();
+      DialogUtils.showMessageDialog(context: context, content: 'Google sign in failed: $e');
       print(e.toString());
     }
   }

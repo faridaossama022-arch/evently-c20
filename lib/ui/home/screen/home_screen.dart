@@ -4,7 +4,6 @@ import 'package:evently_c20/core/resources/routes_manager.dart';
 import 'package:evently_c20/ui/home/tabs/favorite_tab/favorite_tab.dart';
 import 'package:evently_c20/ui/home/tabs/home_tab/home_tab.dart';
 import 'package:evently_c20/ui/home/tabs/profile_tab/profile_tab.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

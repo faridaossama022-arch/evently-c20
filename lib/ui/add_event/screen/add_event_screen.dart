@@ -9,7 +9,6 @@ import 'package:evently_c20/model/event_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../core/resources/my_flutter_app_icons.dart';
 import '../../../core/reusable_components/custom_field.dart';
 

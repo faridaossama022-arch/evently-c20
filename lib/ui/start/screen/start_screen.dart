@@ -1,11 +1,9 @@
-import 'package:evently_c20/core/resources/app_theme.dart';
-import 'package:evently_c20/core/resources/colors_manager.dart';
+import 'package:evently_c20/core/resources/routes_manager.dart';
 import 'package:evently_c20/core/resources/strings_manager.dart';
 import 'package:evently_c20/core/reusable_components/custom_button.dart';
 import 'package:evently_c20/providers/theme_provider.dart';
 import 'package:evently_c20/ui/start/widgets/language_switch.dart';
 import 'package:evently_c20/ui/start/widgets/theme_switch.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +14,6 @@ class StartScreen extends StatefulWidget {
   @override
   State<StartScreen> createState() => _StartScreenState();
 }
-
 class _StartScreenState extends State<StartScreen> {
   String  selectedLang = "en";
   @override
@@ -41,14 +38,13 @@ class _StartScreenState extends State<StartScreen> {
             Row(
               children: [
                 Text(StringsManager.language,style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500
                 ),),
                 Spacer(),
                 LanguageSwitch(title: "English",languageCode: "en",selectedLanguage: selectedLang,),
                 SizedBox(width: 8,),
                 LanguageSwitch(title: "Arabic",languageCode: "ar",selectedLanguage: selectedLang,),
-
               ],
             ),
             SizedBox(height: 16,),
@@ -68,12 +64,11 @@ class _StartScreenState extends State<StartScreen> {
                     ?AssetsManager.moonSelected
                     :AssetsManager.moon,
                   mode: ThemeMode.dark,),
-
               ],
             ),
             SizedBox(height: 24,),
             CustomButton(title: StringsManager.startActionTitle, onClick: () {
-
+              Navigator.pushReplacementNamed(context, RoutesManager.onboarding);
             },)
           ],
         ),

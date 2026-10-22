@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 abstract class DialogUtils {
 
   static void showMessageDialog(
-  {
-    required BuildContext context,
-    required String content,
-   }
+      {
+        required BuildContext context,
+        required String content,
+      }
       ){
     showDialog(context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
         title: Text("Warning"),
-        content: Text(content) ,
+        content: Text(content, style: TextStyle(color: Colors.black87, fontSize: 14),) ,
         actions: [
           TextButton(onPressed: (){
             Navigator.of(context).pop();
@@ -28,7 +28,8 @@ abstract class DialogUtils {
         children: [
           Row(
             children: [
-              Text("Loading..."),
+              Text("Loading...", style: TextStyle(color: Colors.black87),),
+              SizedBox(width: 16,),
               Center(child: CircularProgressIndicator(),)
             ],
           ),

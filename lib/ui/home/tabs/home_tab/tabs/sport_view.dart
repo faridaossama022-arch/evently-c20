@@ -1,6 +1,5 @@
 import 'package:evently_c20/core/resources/app_constants.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../core/remote/network/firestore_manager.dart';
 import '../../../../../core/reusable_components/event_item.dart';
 import '../../../../../model/event_model.dart';
@@ -14,11 +13,9 @@ class SportView extends StatelessWidget {
       future: FirestoreManager.getFilteredEvents(AppConstants.types[0]),
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting){
-          // loading status
           return Center(child: CircularProgressIndicator(),);
         }
         if(snapshot.hasError){
-          // Error status
           return Column(
             children: [
               Text(snapshot.error.toString()),
@@ -28,7 +25,6 @@ class SportView extends StatelessWidget {
             ],
           );
         }
-        // success status
         List<EventModel> events = snapshot.data??[];
         if(events.isEmpty){
           return Center(child: Text('No events found',style: TextStyle(
